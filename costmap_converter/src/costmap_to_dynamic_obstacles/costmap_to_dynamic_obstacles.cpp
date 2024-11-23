@@ -3,7 +3,13 @@
 #include <pluginlib/class_list_macros.hpp>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2/LinearMath/Vector3.h>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+#if __has_include(<tf2_geometry_msgs/tf2_geometry_msgs.hpp>)
+  #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+#elif __has_include(<tf2_geometry_msgs/tf2_geometry_msgs.h>)
+  #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#else
+  #error "Neither tf2_geometry_msgs.hpp nor tf2_geometry_msgs.h is available."
+#endif
 
 PLUGINLIB_EXPORT_CLASS(costmap_converter::CostmapToDynamicObstacles, costmap_converter::BaseCostmapToPolygons)
 
